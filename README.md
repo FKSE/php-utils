@@ -17,7 +17,7 @@ Add this to your `composer.json` file:
 
 ```json
 "require": {
-	"vresh/twilio-bundle": "dev-master",
+	"fkse/php-utils": "dev-master",
 }
 ```
 
