@@ -1,0 +1,19 @@
+{
+    "name": "fkse/php-utils",
+    "description": "A collection of some useful php utils",
+    "license": "MIT",
+    "version": "1.0",
+    "keywords": ["php-utils", "fkse", "utilities", "strings", "datetime"],
+    "authors": [
+        {
+            "name": "Frido Koch",
+            "email": "info@fridokoch.de",
+            "homepage": "http://fridokoch.de",
+            "role": "Developer, Maintainer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": { "FKSE\\": "lib/" }
+    }
+}
