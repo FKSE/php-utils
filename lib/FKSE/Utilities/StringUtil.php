@@ -173,4 +173,18 @@ class StringUtil
         return $string;
     }
 
+    /**
+     * Validates an email address
+     *
+     * @param string $address The email address to validate
+     * @return bool True if $address is a valid email address
+     */
+    public static function isValidEmailAddress($address)
+    {
+        if (preg_match("/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/", $address) === 1) {
+            return true;
+        }
+
+        return false;
+    }
 }

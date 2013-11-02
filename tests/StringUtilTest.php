@@ -366,4 +366,29 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
         //trimStringArray with recursion disabled
         $this->assertEquals($expectedLinearAbs, StringUtil::castStringArrayToIntArray($testData, false, true));
     }
+
+    /**
+     * @return array
+     */
+    public static function isEmailAddressDataProvider()
+    {
+        return [
+            ['test@arof.de', true],
+            ['gan$ster@aasedfrof.gov', true],
+            ['üüüü@aasedfrof.gov', false],
+            ['asd@aasedfrof', false],
+            ['asd?=@aasedfrof.org', true],
+        ];
+    }
+
+    /**
+     * @param string $address
+     * @param bool   $expected
+     *
+     * @dataProvider isEmailAddressDataProvider
+     */
+    public function testIsValidEmailAddress($address, $expected)
+    {
+        $this->assertSame($expected, StringUtil::isValidEmailAddress($address), sprintf('Test failed for address %s', $address));
+    }
 }
