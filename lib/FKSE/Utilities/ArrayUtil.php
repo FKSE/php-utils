@@ -23,4 +23,30 @@ class ArrayUtil
 
         return true;
     }
+
+    /**
+     * Allows accessing an array with a path like construct: /elm1/elm2/elm3 == [elm1][elm2][elm3]
+     *
+     * @param string $path
+     * @param array  $array
+     * @param null   $default
+     * @return null
+     */
+    public static function getValueByPath($path, array $array, $default = null)
+    {
+        //check if $path contains a /
+        $pos = strpos($path, '/');
+        //exit condition
+        if ($pos === false) {
+            return array_key_exists($path, $array) ? $array[$path] : $default;
+        }
+        $current = substr($path, 0, $pos);
+
+        if (!array_key_exists($current, $array)) {
+            return null;
+        }
+
+        //recursion
+        return self::getValueByPath(substr($path, $pos+1), $array[$current], $default);
+    }
 } 
