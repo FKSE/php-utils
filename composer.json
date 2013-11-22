@@ -2,7 +2,7 @@
     "name": "fkse/php-utils",
     "description": "A collection of some useful php utils",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": ["php-utils", "fkse", "utilities", "strings", "datetime"],
     "authors": [
         {

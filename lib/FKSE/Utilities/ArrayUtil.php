@@ -16,7 +16,7 @@ class ArrayUtil
     public static function arrayKeysExist(array $keys, array $search)
     {
         foreach ($keys as $key) {
-            if (!array_key_exists($keys, $search)) {
+            if (!array_key_exists($key, $search)) {
                 return false;
             }
         }
