@@ -187,4 +187,29 @@ class StringUtil
 
         return false;
     }
+
+    /**
+     * Takes an integer value and returns an formatted string. For example 1024 -> 1 KiB
+     *
+     * @param integer $bytes
+     *
+     * @throws \OutOfRangeException
+     * @return string
+     */
+    public static function formatBytes($bytes)
+    {
+        $bytes = (double) $bytes;
+        //units
+        $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB');
+        $index = (int) (log($bytes)/log(1024));
+        //echo $index;
+        if ($index > 8) {
+            throw new \OutOfRangeException('Input is to large! Maximum supported: 1.236731113465765645724418048 * 10^27 bytes.');
+        }
+        //format
+        $output = sprintf('%.2f %s', ($bytes/pow(1024, $index)), $units[$index]);
+
+        return $output;
+    }
+
 }
