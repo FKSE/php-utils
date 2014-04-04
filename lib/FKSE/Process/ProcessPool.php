@@ -45,6 +45,7 @@ class ProcessPool
         //status arrays
         $this->status = [];
         $this->previousStatus = [];
+        $this->processes = [];
     }
 
     /**
