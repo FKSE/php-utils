@@ -32,48 +32,52 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
     {
         return [
             //bool:true
-            ['true', true],
-            ['TrUe', true],
-            ['yes', true],
-            ['YES', true],
-            ['ja', true],
-            ['Ja', true],
+            ['true', true, 'boolean'],
+            ['TrUe', true, 'boolean'],
+            ['yes', true, 'boolean'],
+            ['YES', true, 'boolean'],
+            ['ja', true, 'boolean'],
+            ['Ja', true, 'boolean'],
             //bool:false
-            ['false', false],
-            ['FaLsE', false],
-            ['no', false],
-            ['NO', false],
-            ['No', false],
-            ['Nein', false],
-            ['NEIN', false],
-            ['NeIn', false],
+            ['false', false, 'boolean'],
+            ['FaLsE', false, 'boolean'],
+            ['no', false, 'boolean'],
+            ['NO', false, 'boolean'],
+            ['No', false, 'boolean'],
+            ['Nein', false, 'boolean'],
+            ['NEIN', false, 'boolean'],
+            ['NeIn', false, 'boolean'],
             //null
-            ['null', null],
-            ['NULL', null],
-            ['NuLl', null],
+            ['null', null, 'null'],
+            ['NULL', null, 'null'],
+            ['NuLl', null, 'null'],
             //float
-            ['12.13', 12.13],
-            ['12,12', 12.12],
-            ['12,312334456789765434567876543234567', 12.312334456789765434567876543234567],
-            ['1123456787654345678765434567892,312334456789765434567876543234567', 1123456787654345678765434567892.312334456789765434567876543234567],
+            ['12.13', 12.13, 'float'],
+            ['12,12', 12.12, 'float'],
+            ['12,312334456789765434567876543234567', 12.312334456789765434567876543234567, 'float'],
+            ['1123456787654345678765434567892,312334456789765434567876543234567', 1123456787654345678765434567892.312334456789765434567876543234567, 'float'],
             //int
-            ['11', 11],
+            ['11', 11, 'integer'],
             //string
-            ['12,12,12', '12,12,12'],
-            ['12.12.12', '12.12.12'],
-            ['testString', 'testString']
+            ['12,12,12', '12,12,12', 'string'],
+            ['12.12.12', '12.12.12', 'string'],
+            ['testString', 'testString', 'string']
         ];
     }
 
     /**
      * @param string $value
-     * @param mixed  $expected
+     * @param mixed  $expectedValue
+     * @param string $expectedType
+     *
+     * @internal     param mixed $expected
      *
      * @dataProvider guessAndCastValueDataProvider
      */
-    public function testGuessAndCastValue($value, $expected)
+    public function testGuessAndCastValue($value, $expectedValue, $expectedType)
     {
-        $this->assertSame($expected, StringUtil::guessAndCastValue($value));
+        $this->assertSame($expectedValue, StringUtil::guessAndCastValue($value, $type));
+        $this->assertSame($expectedType, $type);
     }
 
     /**

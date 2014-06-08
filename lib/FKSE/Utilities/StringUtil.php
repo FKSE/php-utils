@@ -96,11 +96,12 @@ class StringUtil
     /**
      * Guesses and casts a string value to an actual data type
      *
-     * @param string $value
+     * @param string $value The value to detect and cast
+     * @param string $type  The type which was detected
      *
      * @return bool|float|int|null
      */
-    public static function guessAndCastValue($value)
+    public static function guessAndCastValue($value, &$type = '')
     {
         // matched values array
         $matchesTrue = ['true','yes','ja'];
@@ -108,26 +109,37 @@ class StringUtil
         $matchesNull = ['null'];
 
         if (in_array(strtolower($value), $matchesTrue)) {
+            $type = 'boolean';
+
             return true;
         } elseif (in_array(strtolower($value), $matchesFalse)) {
+            $type = 'boolean';
+
             return false;
         } elseif (in_array(strtolower($value), $matchesNull)) {
+            $type = 'null';
+
             return null;
         } else {
             // check for numerical string and cast if necessary
             if (strstr($value, ',') !== false) {
                 $checkStr = str_replace(',', '.', $value);
-
                 if (is_numeric($checkStr)) {
                     $value = $checkStr;
                 }
             }
+            //numbers
+            if (is_numeric($value) && strstr($value, '.') !== false && substr_count($value, '.') == 1) { //float
+                $type = 'float';
 
-            if (is_numeric($value) && strstr($value, '.') !== false && substr_count($value, '.') == 1) {
                 return (float) $value;
-            } elseif (is_numeric($value)) {
+            } elseif (is_numeric($value)) { //int
+                $type = 'integer';
+
                 return (int) $value;
             } else {
+                $type = 'string';
+
                 return $value;
             }
         }
