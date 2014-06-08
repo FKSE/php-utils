@@ -15,5 +15,15 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-0": { "FKSE\\": "lib/" }
+    },
+    "require-dev": {
+      "phpunit/phpunit": "~4.1",
+      "phploc/phploc": "*",
+      "pdepend/pdepend": "*",
+      "phpmd/phpmd": "*",
+      "squizlabs/php_codesniffer": "*",
+      "sebastian/phpcpd": "*",
+      "phpdocumentor/phpdocumentor": "*",
+      "mayflower/php-codebrowser": "*"
     }
 }
