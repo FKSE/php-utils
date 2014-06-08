@@ -6,7 +6,7 @@ use FKSE\Utilities\ArrayUtil;
  *
  * @author Fridolin Koch <fridolin.koch@airmotion.de>
  */
-class ArrayUtilTest extends PHPUnit_Framework_TestCase
+class ArrayUtilTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -45,4 +45,3 @@ class ArrayUtilTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('mno', ArrayUtil::getValueByPath('my_application/abc/def/ghi/jkl', $array));
     }
 }
- 
