@@ -224,4 +224,37 @@ class StringUtil
         return $output;
     }
 
+    /**
+     * This function works similar to the corresponding .net / Java function.
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @return bool True if $haystack ends with $needle or if $needle is a empty string
+     */
+    public static function endsWith($haystack, $needle)
+    {
+        if (strlen($haystack) < strlen($needle)) {
+            return false;
+        }
+        $end = substr($haystack, strlen($haystack) - strlen($needle), strlen($needle));
+
+        return $needle === "" || $needle === $end;
+    }
+
+    /**
+     * This function works similar to the corresponding .net / Java function.
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @return bool True if $haystack starts with $needle or if $needle is a empty string
+     */
+    public static function startsWith($haystack, $needle)
+    {
+        if (strlen($haystack) < strlen($needle)) {
+            return false;
+        }
+        $start = substr($haystack, 0, strlen($needle));
+
+        return $needle === "" || $needle === $start;
+    }
 }

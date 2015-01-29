@@ -395,4 +395,35 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame($expected, StringUtil::isValidEmailAddress($address), sprintf('Test failed for address %s', $address));
     }
+
+    /**
+     * @test
+     */
+    public function testEndsWith()
+    {
+        $this->assertTrue(StringUtil::endsWith('some string', 'string'));
+        $this->assertTrue(StringUtil::endsWith('bal:?', ':?'));
+        $this->assertTrue(StringUtil::endsWith('Äpfelküchäääää', 'ää'));
+        $this->assertFalse(StringUtil::endsWith('asdf', 'xyz'));
+        $this->assertFalse(StringUtil::endsWith('452', 'abc'));
+        $this->assertFalse(StringUtil::endsWith('42322', '##ääööü-.'));
+        $this->assertTrue(StringUtil::endsWith('42322', ''));
+        $this->assertFalse(StringUtil::endsWith('asdf', 'asdfeg'));
+    }
+
+    /**
+     * @test
+     */
+    public function testStartsWith()
+    {
+        $this->assertTrue(StringUtil::startsWith('some string', 'some'));
+        $this->assertTrue(StringUtil::startsWith('?:peter wurst', '?:'));
+        $this->assertTrue(StringUtil::startsWith('abc', 'a'));
+        $this->assertTrue(StringUtil::startsWith('abc', ''));
+        $this->assertFalse(StringUtil::startsWith('abc', 'abcd'));
+        $this->assertFalse(StringUtil::startsWith('abc', 'xyz'));
+        $this->assertFalse(StringUtil::startsWith('ääää', 'üü'));
+        $this->assertFalse(StringUtil::startsWith('dfwgerger', 'üü'));
+
+    }
 }
