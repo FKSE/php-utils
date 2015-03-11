@@ -28,14 +28,20 @@ class ArrayUtil
      * Allows accessing an array with a path like construct: /elm1/elm2/elm3 == [elm1][elm2][elm3]
      *
      * @param string $path
-     * @param array  $array
-     * @param null   $default
+     * @param array $array
+     * @param null $default
+     * @param string $operator
+     *
      * @return null
      */
-    public static function getValueByPath($path, array $array, $default = null)
+    public static function getValueByPath($path, array $array, $default = null, $operator = '/')
     {
+        //handle indexes containing a /
+        if (isset($array[$path])) {
+            return $array[$path];
+        }
         //check if $path contains a /
-        $pos = strpos($path, '/');
+        $pos = strpos($path, $operator);
         //exit condition
         if ($pos === false) {
             return array_key_exists($path, $array) ? $array[$path] : $default;
@@ -47,6 +53,6 @@ class ArrayUtil
         }
 
         //recursion
-        return self::getValueByPath(substr($path, $pos+1), $array[$current], $default);
+        return self::getValueByPath(substr($path, $pos+1), $array[$current], $default, $operator);
     }
-} 
+}

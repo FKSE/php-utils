@@ -29,7 +29,8 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase
                         ]
                     ]
                 ]
-            ]
+            ],
+            'bla/bla' => 'foo'
         ];
         //this with existent value
         $this->assertEquals('asd', ArrayUtil::getValueByPath('amazon', $array)['key']);
@@ -43,5 +44,9 @@ class ArrayUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertNull(ArrayUtil::getValueByPath('amazon/bla', $array));
         //test deep
         $this->assertEquals('mno', ArrayUtil::getValueByPath('my_application/abc/def/ghi/jkl', $array));
+        //test key containing /
+        $this->assertSame('foo', ArrayUtil::getValueByPath('bla/bla', $array));
+        //test alternative operator
+        $this->assertEquals('mno', ArrayUtil::getValueByPath('my_application.abc.def.ghi.jkl', $array, null, '.'));
     }
 }
