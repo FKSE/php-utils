@@ -218,8 +218,13 @@ class StringUtil
         if ($index > 8) {
             throw new \OutOfRangeException('Input is to large! Maximum supported: 1.236731113465765645724418048 * 10^27 bytes.');
         }
-        //format
-        $output = sprintf('%.2f %s', ($bytes/pow(1024, $index)), $units[$index]);
+        if ($index === 0) {
+            //format
+            $output = sprintf('%.2f %s', $bytes, $units[$index]);
+        } else {
+            //format
+            $output = sprintf('%.2f %s', ($bytes/pow(1024, $index)), $units[$index]);
+        }
 
         return $output;
     }
