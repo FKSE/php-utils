@@ -29,7 +29,7 @@ class StringUtil
                     break;
                 //0-9
                 case 2:
-                    $char = chr(rand(97, 122));
+                    $char = (string) rand(0, 9);
                     break;
 
             }
