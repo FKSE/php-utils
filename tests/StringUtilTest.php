@@ -15,7 +15,7 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
     public function testGenerateRandomAlphanumericString()
     {
         for ($i = 0; $i < 10; $i++) {
-            $length = ($i+1)*5*rand(1, 4);
+            $length = ($i + 1) * 5 * rand(1, 4);
             //generate random string
             $data = StringUtil::generateRandomAlphanumericString($length);
             //test length
@@ -55,13 +55,17 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
             ['12.13', 12.13, 'float'],
             ['12,12', 12.12, 'float'],
             ['12,312334456789765434567876543234567', 12.312334456789765434567876543234567, 'float'],
-            ['1123456787654345678765434567892,312334456789765434567876543234567', 1123456787654345678765434567892.312334456789765434567876543234567, 'float'],
+            [
+                '1123456787654345678765434567892,312334456789765434567876543234567',
+                1123456787654345678765434567892.312334456789765434567876543234567,
+                'float',
+            ],
             //int
             ['11', 11, 'integer'],
             //string
             ['12,12,12', '12,12,12', 'string'],
             ['12.12.12', '12.12.12', 'string'],
-            ['testString', 'testString', 'string']
+            ['testString', 'testString', 'string'],
         ];
     }
 
@@ -124,8 +128,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     'adsf . ',
                     ' sdfsd ',
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a call with recursion enabled
         $expectedRecursion = [
@@ -143,8 +147,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     'adsf .',
                     'sdfsd',
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a linear call
         $expectedLinear = [
@@ -162,8 +166,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     'adsf . ',
                     ' sdfsd ',
-                ]
-            ]
+                ],
+            ],
         ];
         //trimStringArray with recursion enabled
         $this->assertEquals($expectedRecursion, StringUtil::trimStringArray($testData, true));
@@ -189,8 +193,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     '1.3',
                     '-3.4',
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a call with recursion enabled
         $expectedRecursion = [
@@ -206,8 +210,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     1.3,
                     -3.4,
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a linear call
         $expectedLinear = [
@@ -223,8 +227,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     '1.3',
                     '-3.4',
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a call with recursion and unsigned enabled
         $expectedRecursionAbs = [
@@ -240,8 +244,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     1.3,
                     3.4,
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a linear call
         $expectedLinearAbs = [
@@ -257,8 +261,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     '1.3',
                     '-3.4',
-                ]
-            ]
+                ],
+            ],
         ];
 
         //trimStringArray with recursion enabled
@@ -289,8 +293,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     '1.3',
                     '-3.4',
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a call with recursion enabled
         $expectedRecursion = [
@@ -306,8 +310,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     1,
                     -3,
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a linear call
         $expectedLinear = [
@@ -323,8 +327,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     '1.3',
                     '-3.4',
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a call with recursion and unsigned enabled
         $expectedRecursionAbs = [
@@ -340,8 +344,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     1,
                     3,
-                ]
-            ]
+                ],
+            ],
         ];
         //the expected result for a linear call
         $expectedLinearAbs = [
@@ -357,8 +361,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
                 [
                     '1.3',
                     '-3.4',
-                ]
-            ]
+                ],
+            ],
         ];
 
         //trimStringArray with recursion enabled
@@ -393,7 +397,8 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValidEmailAddress($address, $expected)
     {
-        $this->assertSame($expected, StringUtil::isValidEmailAddress($address), sprintf('Test failed for address %s', $address));
+        $this->assertSame($expected, StringUtil::isValidEmailAddress($address),
+            sprintf('Test failed for address %s', $address));
     }
 
     /**
@@ -425,5 +430,37 @@ class StringUtilTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(StringUtil::startsWith('ääää', 'üü'));
         $this->assertFalse(StringUtil::startsWith('dfwgerger', 'üü'));
 
+    }
+
+    /**
+     * @param string $expected
+     * @param int    $input
+     *
+     * @dataProvider formatBytesProvider
+     */
+    public function testFormatBytes($expected, $input)
+    {
+        $this->assertEquals($expected, StringUtil::formatBytes($input));
+    }
+
+    /**
+     * @return array
+     */
+    public function formatBytesProvider()
+    {
+        return [
+            ['1.00 B', 1],
+            ['222.00 B', 222],
+            ['222.00 B', -222],
+            ['0.00 B', 0],
+            ['1.00 KiB', 1024],
+            ['1.00 MiB', pow(1024, 2)],
+            ['1.00 GiB', pow(1024, 3)],
+            ['1.00 TiB', pow(1024, 4)],
+            ['1.00 PiB', pow(1024, 5)],
+            ['1.00 EiB', pow(1024, 6)],
+            ['1.00 ZiB', pow(1024, 7)],
+            ['1.00 YiB', pow(1024, 8)],
+        ];
     }
 }

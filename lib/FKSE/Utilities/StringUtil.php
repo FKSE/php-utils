@@ -74,7 +74,7 @@ class StringUtil
      *
      * @param bool     $unsigned
      *
-     * @return int[]
+     * @return float[]
      */
     public static function castArrayToFloatArray($array, $recursion = true, $unsigned = false)
     {
@@ -210,7 +210,10 @@ class StringUtil
      */
     public static function formatBytes($bytes)
     {
-        $bytes = (double) $bytes;
+        $bytes = (double) abs($bytes);
+        if ($bytes === 0.0) {
+            return '0.00 B';
+        }
         //units
         $units = array('B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB');
         $index = (int) (log($bytes)/log(1024));
